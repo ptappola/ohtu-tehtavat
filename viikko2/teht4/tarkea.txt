@@ -1,3 +1,5 @@
+Alussakin on lisää rivejä,
+lukeeko näitä kukaan?
 Merkityksettömiä rivejä,
 joita voidaan kuitenkin tarvita,
 tai sitten ei.
