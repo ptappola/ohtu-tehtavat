@@ -8,6 +8,9 @@ package ohtu;
 import com.google.gson.Gson;
 import java.io.IOException;
 import org.apache.http.client.fluent.Request;
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  *
  * @author ptappola
@@ -15,7 +18,8 @@ import org.apache.http.client.fluent.Request;
 public class Main {
     public static void main(String[] args) throws IOException {
         String url = "https://nhlstatisticsforohtu.herokuapp.com/players";
-        
+        ArrayList<Player> suomalaiset = new ArrayList<Player>();
+
         String bodyText = Request.Get(url).execute().returnContent().asString();
 
 //        System.out.println("json-muotoinen data:");
@@ -27,8 +31,13 @@ public class Main {
         System.out.println("Suomalaiset pelaajat:");
         for (Player player : players) {
             if (player.getNationality().equals("FIN")) {
-                System.out.println(player);
+                suomalaiset.add(player);
+//                System.out.println(player);
             }
-        }   
+        }
+        Collections.sort(suomalaiset);
+        for (Player player : suomalaiset) {
+            System.out.println(player);
+        }
     }
 }
