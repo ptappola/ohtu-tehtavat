@@ -3,6 +3,8 @@ package ohtu.verkkokauppa;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Component;
+@Component
 public class Kirjanpito implements KirjanpitoIF {
     
     private ArrayList<String> tapahtumat;
