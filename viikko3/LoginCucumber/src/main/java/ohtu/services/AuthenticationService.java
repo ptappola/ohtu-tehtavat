@@ -40,7 +40,27 @@ public class AuthenticationService {
 
     private boolean invalid(String username, String password) {
         // validity check of username and password
-
+        if (username.length() < 3) {
+            return true;
+        }
+        if (password.length() < 8) {
+            return true;
+        }
+        int letters = 0;
+        int numbers = 0;
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
+            if (ch == '0' || ch == '1' || ch == '2' || ch == '3' ||
+                ch == '4' || ch == '5' || ch == '6' || ch == '7' ||
+                ch == '8' || ch == '9') {
+                numbers++;
+            } else {
+                letters++;
+            }
+        }
+        if (letters == 0 || numbers == 0) {
+            return true;
+        }
         return false;
     }
 }
