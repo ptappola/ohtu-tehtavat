@@ -14,8 +14,11 @@ public class Ostoskori {
         //   tulee metodin palauttaa 2 
         // jos korissa on 1 kpl tuotetta "maito" ja 1 kpl tuotetta "juusto", 
         //   tulee metodin palauttaa 2   
-
-        return this.ostokset.size();
+        int paluu = 0;
+        for (Ostos o : ostokset) {
+            paluu += o.lukumaara();
+        }
+        return paluu;
     }
  
     public int hinta() {
@@ -29,6 +32,12 @@ public class Ostoskori {
  
     public void lisaaTuote(Tuote lisattava) {
         // lisää tuotteen
+        for (Ostos o : ostokset) {
+            if (o.tuotteenNimi().equals(lisattava.getNimi())) {
+                o.muutaLukumaaraa(1);
+                return;
+            }
+        }
         this.ostokset.add(new Ostos(lisattava));
     }
  
