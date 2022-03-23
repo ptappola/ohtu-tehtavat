@@ -20,8 +20,11 @@ public class Ostoskori {
  
     public int hinta() {
         // kertoo korissa olevien tuotteiden yhteenlasketun hinnan
- 
-        return 0;
+        int paluu = 0;
+        for (Ostos o : this.ostokset) {
+            paluu += o.hinta();
+        }
+        return paluu;
     }
  
     public void lisaaTuote(Tuote lisattava) {
