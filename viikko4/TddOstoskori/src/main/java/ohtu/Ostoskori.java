@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Ostoskori {
-    private List<Ostos> ostokset;
+    private ArrayList<Ostos> ostokset;
     public Ostoskori() {
         this.ostokset = new ArrayList();
     }
@@ -42,11 +42,17 @@ public class Ostoskori {
     }
  
     public void poista(Tuote poistettava) {
-        for (Ostos o : this.ostokset) {
+        for (int i = 0; i < this.ostokset.size(); i++) {
+            Ostos o = this.ostokset.get(i);
             if (o.tuotteenNimi().equals(poistettava.getNimi())) {
                 o.muutaLukumaaraa(-1);
+                if (o.lukumaara() == 0) {
+                    this.ostokset.remove(i);
+                }
                 return;
             }
+        }
+        for (Ostos o : this.ostokset) {
         }
         // poistaa tuotteen
     }
