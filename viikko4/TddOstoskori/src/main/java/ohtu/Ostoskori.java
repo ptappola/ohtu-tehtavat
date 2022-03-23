@@ -42,6 +42,12 @@ public class Ostoskori {
     }
  
     public void poista(Tuote poistettava) {
+        for (Ostos o : this.ostokset) {
+            if (o.tuotteenNimi().equals(poistettava.getNimi())) {
+                o.muutaLukumaaraa(-1);
+                return;
+            }
+        }
         // poistaa tuotteen
     }
  
