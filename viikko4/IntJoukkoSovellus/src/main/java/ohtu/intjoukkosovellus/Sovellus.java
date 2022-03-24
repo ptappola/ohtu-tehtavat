@@ -16,12 +16,13 @@ public class Sovellus {
         String luettu;
         Scanner lukija = new Scanner(System.in);
         luettu = luku();
+        luettu = luettu.toUpperCase();
         while (true) {
-            if (luettu.equals("A") || luettu.equals("a")) {
+            if (luettu.equals("A")) {
                 return A;
-            } else if (luettu.equals("B") || luettu.equals("b")) {
+            } else if (luettu.equals("B")) {
                 return B;
-            } else if (luettu.equals("C") || luettu.equals("c")) {
+            } else if (luettu.equals("C")) {
                 return C;
             } else {
                 System.out.println("Virheellinen joukko! " + luettu);
