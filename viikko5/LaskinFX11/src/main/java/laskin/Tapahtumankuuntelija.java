@@ -1,5 +1,6 @@
 package laskin;
 
+import java.util.HashMap;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -13,7 +14,10 @@ public class Tapahtumankuuntelija implements EventHandler {
     private Button nollaa;
     private Button undo;
     private Sovelluslogiikka sovellus;
-
+    private Komento dummy;
+    private NollaaCmd enable;
+    private HashMap<Button, Komento> komennot;
+    private HashMap<Integer, NollaaCmd> enabloija;
     public Tapahtumankuuntelija(TextField tuloskentta, TextField syotekentta, Button plus, Button miinus, Button nollaa, Button undo) {
         this.tuloskentta = tuloskentta;
         this.syotekentta = syotekentta;
@@ -22,6 +26,15 @@ public class Tapahtumankuuntelija implements EventHandler {
         this.nollaa = nollaa;
         this.undo = undo;
         this.sovellus = new Sovelluslogiikka();
+        this.komennot = new HashMap<Button, Komento>();
+        this.dummy = new Dummy(sovellus);
+        this.komennot.put(this.plus, new Plus(sovellus));
+        this.komennot.put(this.miinus, new Miinus(sovellus));
+        this.komennot.put(this.nollaa, new Nollaa(sovellus));
+        this.komennot.put(this.undo, this.dummy);
+        this.enabloija = new HashMap<Integer, NollaaCmd>();
+        this.enable = new NollaaActivate();
+        this.enabloija.put(0, new NollaaDeactivate());
     }
     
     @Override
@@ -32,27 +45,12 @@ public class Tapahtumankuuntelija implements EventHandler {
             arvo = Integer.parseInt(syotekentta.getText());
         } catch (Exception e) {
         }
- 
-        if (event.getTarget() == plus) {
-            sovellus.plus(arvo);
-        } else if (event.getTarget() == miinus) {
-            sovellus.miinus(arvo);
-        } else if (event.getTarget() == nollaa) {
-            sovellus.nollaa();
-        } else {
-            System.out.println("undo pressed");
-        }
-        
+ 	this.komennot.getOrDefault(event.getTarget(), this.dummy).suorita(arvo);
         int laskunTulos = sovellus.tulos();
         
         syotekentta.setText("");
         tuloskentta.setText("" + laskunTulos);
-        
-        if ( laskunTulos==0) {
-            nollaa.disableProperty().set(true);
-        } else {
-            nollaa.disableProperty().set(false);
-        }
+        this.enabloija.getOrDefault(laskunTulos, this.enable).suorita(nollaa);
         undo.disableProperty().set(false);
     }
 
