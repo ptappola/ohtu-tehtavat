@@ -31,7 +31,7 @@ public class Tapahtumankuuntelija implements EventHandler {
         this.komennot.put(this.plus, new Plus(sovellus));
         this.komennot.put(this.miinus, new Miinus(sovellus));
         this.komennot.put(this.nollaa, new Nollaa(sovellus));
-        this.komennot.put(this.undo, this.dummy);
+        this.komennot.put(this.undo, new Undo(sovellus));
         this.enabloija = new HashMap<Integer, NollaaCmd>();
         this.enable = new NollaaActivate();
         this.enabloija.put(0, new NollaaDeactivate());
