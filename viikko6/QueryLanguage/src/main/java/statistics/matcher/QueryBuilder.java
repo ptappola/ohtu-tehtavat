@@ -17,7 +17,13 @@ public class QueryBuilder {
         this.matcher = new HasFewerThan(matcher, value, category);
         return this;
     }
+    public QueryBuilder oneOf(Matcher... matchers) {
+        this.matcher = new Or(matchers);
+        return this;
+    }
     public Matcher build() {
-        return this.matcher;
+        Matcher m = this.matcher;
+        this.matcher = new All();
+        return m;
     }
 }
